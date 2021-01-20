@@ -44,12 +44,16 @@ export default function ToDo (props) {
 
   return (
     <>
-      <header>
+    <header>
+      <h1>Home</h1>
+    </header>
+   
+      <div>
         <h2>
           {console.log("list before filter", list)}
         There are {list.filter(item => !item.complete).length} Items To Complete
         </h2>
-      </header>
+      </div>
 
       <section className="todo">
 
