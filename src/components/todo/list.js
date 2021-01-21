@@ -5,14 +5,16 @@ export default function TodoList (props) {
 
   return (
     <ListGroup>
+      {console.log(props.list ,'i was an todo')}
       {props.list.map(item => (
         <ListGroup.Item
-          className={`complete-${item.complete.toString()}`}
-          key={item._id}
+        className={`complete-${item.complete}`}
+        key={item._id}
         >
           <span onClick={() => props.handleComplete(item._id)}>
             {item.text}
           </span>
+          <p>{item.assignee}</p>          
         </ListGroup.Item>
       ))}
     </ListGroup>
