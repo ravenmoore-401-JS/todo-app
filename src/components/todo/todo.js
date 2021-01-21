@@ -2,26 +2,16 @@ import React, { useEffect } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
 import {useState} from 'react';
-
-
 import './todo.scss';
+import { Container } from 'react-bootstrap';
+import useAjaxCalls from '../hooks/ajax';
 
 export default function ToDo (props) {
-  const [list, setList] = useState([])
-  
+  const [list, setList,_getTodos, _addItem] = useAjaxCalls();
 
-  const addItem = (item) => {
-    item._id = Math.random();
-    item.complete = false;
-
-    setList([...list, item]);
-  }
-
+  // will become update
   const toggleComplete = id => {
-
     let item = list.filter(i => i._id === id)[0] || {};
-
-
     if (item._id) {
       item.complete = !item.complete;
       let listed = list.map(listItem => listItem._id === item._id ? item : listItem);
@@ -29,28 +19,15 @@ export default function ToDo (props) {
     }
 
   }
-
-  useEffect( () =>{
-    let list = [
-      { _id: 1, complete: false, text: 'Clean the Kitchen', difficulty: 3, assignee: 'Person A'},
-      { _id: 2, complete: false, text: 'Do the Laundry', difficulty: 2, assignee: 'Person A'},
-      { _id: 3, complete: false, text: 'Walk the Dog', difficulty: 4, assignee: 'Person B'},
-      { _id: 4, complete: true, text: 'Do Homework', difficulty: 3, assignee: 'Person C'},
-      { _id: 5, complete: false, text: 'Take a Nap', difficulty: 1, assignee: 'Person B'},
-    ];
-
-    setList(list);
-  }, []);
-
+  console.log({_getTodos})
   return (
     <>
-    <header>
+    <Container variant='primary'>
       <h1>Home</h1>
-    </header>
+    </Container>
    
       <div>
         <h2>
-          {console.log("list before filter", list)}
         There are {list.filter(item => !item.complete).length} Items To Complete
         </h2>
       </div>
@@ -58,13 +35,12 @@ export default function ToDo (props) {
       <section className="todo">
 
         <div>
-          <TodoForm handleSubmit={addItem} />
-        </div>
+          <TodoForm handleSubmit={_addItem} />
 
-        <div>
           <TodoList
             list={list}
             handleComplete={toggleComplete}
+            // ADD DELETE
           />
         </div>
       </section>

@@ -17,8 +17,8 @@ export default function Nav (props) {
           </Link> 
         </ListGroup.Item>
         <ListGroup.Item variant="dark" href="/about">
-          <Link to='/about'>
-            About
+          <Link to='/settings'>
+            settings
           </Link> 
         </ListGroup.Item>
       </ListGroup>

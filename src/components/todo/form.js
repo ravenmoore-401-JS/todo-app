@@ -10,17 +10,17 @@ export default function TodoForm(props){
     setItem({...item, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const formSub = (e) => {
     e.preventDefault();
     e.target.reset();
     props.handleSubmit(item);
-    setItem(item);
+    setItem({});
   };
 
   return (
     <>
       <h3>Add Item</h3>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={formSub}>
         <Form.Label>
           <span>To Do Item</span>
           <Form.Control
