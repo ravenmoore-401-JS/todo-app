@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
-import {useState} from 'react';
-import './todo.scss';
-import { Container } from 'react-bootstrap';
 import useAjaxCalls from '../hooks/ajax';
 
 export default function ToDo (props) {
-  const [list, setList,_getTodos, _addItem] = useAjaxCalls();
+  const [list, setList,_getTodos, _addItem,_completeItem] = useAjaxCalls();
 
   // will become update
   const toggleComplete = id => {
@@ -19,27 +16,15 @@ export default function ToDo (props) {
     }
 
   }
-  console.log({_getTodos})
+  // console.log({_getTodos})
   return (
-    <>
-    <Container variant='primary'>
-      <h1>Home</h1>
-    </Container>
-   
-      <div>
-        <h2>
-        There are {list.filter(item => !item.complete).length} Items To Complete
-        </h2>
-      </div>
-
+    <>••••
       <section className="todo">
-
         <div>
           <TodoForm handleSubmit={_addItem} />
-
           <TodoList
             list={list}
-            handleComplete={toggleComplete}
+            handleComplete={_completeItem}
             // ADD DELETE
           />
         </div>

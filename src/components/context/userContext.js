@@ -13,12 +13,16 @@ function LoginProvider(props){
 
 
   useEffect(() => {
+    console.log(`useEffect user says: `, user);
+  }, [user])
+
+  useEffect(() => {
     console.log(`useEffect loggedin says: `, loggedIn);
   }, [loggedIn])
 
 
   const login = (username, password) => {
-    console.log(username,password)
+    // console.log(username,password)
     fetch(`${API}/signin`, {
       method: 'post',
       mode: 'cors', 
@@ -34,34 +38,36 @@ function LoginProvider(props){
     })
     .then(logedUser => {
       console.log('user', logedUser);
-      validateToken(logedUser.user.token,logedUser);
+      validateToken(logedUser.user.token);
       
     })
   }
-  console.log(user, 'userstate')
+  // console.log(user, 'userstate')
 
-  const validateToken = (token, logedUser) => {
-    console.log('11token11',token,'22user22',logedUser)
+  const validateToken = (token) => {
+    // console.log('11token11',token,'22user22',logedUser)
     try {
       let user = jwt.verify(token, REACT_APP_SECRET);
-      console.log(user, 'after jwt')
-      setLogInState(true, token, logedUser);
+      // console.log(user, 'after jwt')
+      setLogInState(true, token, user);
       return;
     }
     catch {
       setLogInState(false, null, {});
     }
   }
-// we know loggedin is true, token is good,logedUser has token and user with userdata.
-  const setLogInState = (loggedIn, token, logedUser) => {
-    console.log("user 40",logedUser.user,"token____",token)
-    cookie.save('auth', token, logedUser);
+  const setLogInState = (loggedIn, token, user) => {
+    
+    // we know loggedin is true, token is good,logedUser has token and user with userdata.
+    // console.log("user 40",logedUser.user,"token____",token)
+    cookie.save('auth', token, user);
     setLoggedIn(loggedIn);
-    console.log('setloggedin',loggedIn)
 
+
+    // console.log('setloggedin',loggedIn)
+    console.log('i am logged in user:', user)
     // we break here
-    setUser(logedUser.user);
-    console.log(user, 'is user state')
+    setUser(user);
   }
 
   const state = {
@@ -69,7 +75,7 @@ function LoginProvider(props){
     loggedIn,
     login: login
   }
-  console.log(state, 'this was state')
+  // console.log('this was state',state)
 
   return(
     <UserContext.Provider value={state}>

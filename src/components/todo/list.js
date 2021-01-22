@@ -10,11 +10,13 @@ export default function TodoList (props) {
         <ListGroup.Item
         className={`complete-${item.complete}`}
         key={item._id}
+        action onClick={() => props.handleComplete(item)}
         >
-          <span onClick={() => props.handleComplete(item._id)}>
+          <span >
             {item.text}
           </span>
-          <p>{item.assignee}</p>          
+          <p>{item.assignee}</p>
+          <p>{item.complete}</p>        
         </ListGroup.Item>
       ))}
     </ListGroup>
